@@ -1,6 +1,7 @@
 package com.lijiankun24.iocpractice.ioc;
 
 import android.app.Activity;
+import android.view.View;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -23,6 +24,7 @@ public class ViewInjectUtils {
     public static void inject(Activity activity) {
         injectContentView(activity);
         injectView(activity);
+        injectEvent(activity);
     }
 
     private static void injectContentView(Activity activity) {
@@ -84,13 +86,17 @@ public class ViewInjectUtils {
                     String methodName = eventBase.methodName();
                     Class listenerType = eventBase.listenerType();
                     try {
-                        Method method1 = annotationType.getDeclaredMethod("valie");
-                        int[] viewIds = (int[]) method1.invoke(annotationType, null);
+                        Method method1 = annotationType.getDeclaredMethod("value");
+                        int[] viewIds = (int[]) method1.invoke(annotation, null);
                         DynamicHandler handler = new DynamicHandler(activity);
                         handler.addMethod(methodName, method);
                         Object listener = Proxy.newProxyInstance(listenerType.getClassLoader()
                                 , new Class[]{listenerType}, handler);
-
+                        for (int viewId : viewIds) {
+                            View view = activity.findViewById(viewId);
+                            Method method2 = view.getClass().getMethod(listenerSetter, listenerType);
+                            method2.invoke(view, listener);
+                        }
                     } catch (NoSuchMethodException e) {
                         e.printStackTrace();
                     } catch (IllegalAccessException e) {

@@ -11,17 +11,17 @@ import java.util.HashMap;
  * Created by lijiankun on 18/3/21.
  */
 
-public class DynamicHandler implements InvocationHandler {
+class DynamicHandler implements InvocationHandler {
 
     private WeakReference<Object> mObjectWR = null;
 
     private final HashMap<String, Method> mMethodHashMap = new HashMap<>();
 
-    public DynamicHandler(Object object) {
+    DynamicHandler(Object object) {
         mObjectWR = new WeakReference<>(object);
     }
 
-    public void addMethod(String methodName, Method method) {
+    void addMethod(String methodName, Method method) {
         mMethodHashMap.put(methodName, method);
     }
 
