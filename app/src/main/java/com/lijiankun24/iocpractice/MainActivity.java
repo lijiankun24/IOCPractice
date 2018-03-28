@@ -6,21 +6,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lijiankun24.iocpractice.ioc.BindView;
 import com.lijiankun24.iocpractice.ioc.ContentView;
 import com.lijiankun24.iocpractice.ioc.OnClick;
-import com.lijiankun24.iocpractice.ioc.ViewInject;
-import com.lijiankun24.iocpractice.ioc.ViewInjectUtils;
+import com.lijiankun24.iocpractice.ioc.ButterKnife;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    @ViewInject(R.id.tv1)
+    @BindView(R.id.tv1)
     private TextView TV1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewInjectUtils.inject(this);
+        ButterKnife.inject(this);
         TV1.setText("Change the text");
     }
 

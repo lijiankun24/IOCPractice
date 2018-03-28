@@ -6,17 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * EventBase.java
+ * BindView.java
  * <p>
- * Created by lijiankun on 18/3/21.
+ * Created by lijiankun on 18/3/19.
  */
 
-@Target(ElementType.ANNOTATION_TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EventBase {
-    Class<?> listenerType();
-
-    String listenerSetter();
-
-    String methodName();
+public @interface BindView {
+    int value();
 }

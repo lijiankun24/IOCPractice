@@ -6,13 +6,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ViewInject.java
+ * EventType.java
  * <p>
- * Created by lijiankun on 18/3/19.
+ * Created by lijiankun on 18/3/21.
  */
 
-@Target(ElementType.FIELD)
+@Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ViewInject {
-    int value();
+public @interface EventType {
+    Class<?> listenerType();
+
+    String listenerSetter();
+
+    String methodName();
 }

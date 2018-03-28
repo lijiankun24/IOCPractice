@@ -10,12 +10,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * ViewInjectUtils.java
+ * ButterKnife.java
  * <p>
  * Created by lijiankun on 18/3/21.
  */
 
-public class ViewInjectUtils {
+public class ButterKnife {
 
     private static final String METHOD_SET_CONTENTVIEW = "setContentView";
 
@@ -52,7 +52,7 @@ public class ViewInjectUtils {
         Class<? extends Activity> clazz = activity.getClass();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
-            ViewInject viewInject = field.getAnnotation(ViewInject.class);
+            BindView viewInject = field.getAnnotation(BindView.class);
             if (viewInject != null) {
                 int viewId = viewInject.value();
                 if (viewId != -1) {
@@ -80,7 +80,7 @@ public class ViewInjectUtils {
             Annotation[] annotations = method.getAnnotations();
             for (Annotation annotation : annotations) {
                 Class<? extends Annotation> annotationType = annotation.annotationType();
-                EventBase eventBase = annotationType.getAnnotation(EventBase.class);
+                EventType eventBase = annotationType.getAnnotation(EventType.class);
                 if (eventBase != null) {
                     String listenerSetter = eventBase.listenerSetter();
                     String methodName = eventBase.methodName();
@@ -88,7 +88,7 @@ public class ViewInjectUtils {
                     try {
                         Method method1 = annotationType.getDeclaredMethod("value");
                         int[] viewIds = (int[]) method1.invoke(annotation, null);
-                        DynamicHandler handler = new DynamicHandler(activity);
+                        ButterKnifeDynamicHandler handler = new ButterKnifeDynamicHandler(activity);
                         handler.addMethod(methodName, method);
                         Object listener = Proxy.newProxyInstance(listenerType.getClassLoader()
                                 , new Class[]{listenerType}, handler);

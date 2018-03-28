@@ -6,18 +6,18 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 /**
- * DynamicHandler.java
+ * ButterKnifeDynamicHandler.java
  * <p>
  * Created by lijiankun on 18/3/21.
  */
 
-class DynamicHandler implements InvocationHandler {
+class ButterKnifeDynamicHandler implements InvocationHandler {
 
     private WeakReference<Object> mObjectWR = null;
 
     private final HashMap<String, Method> mMethodHashMap = new HashMap<>();
 
-    DynamicHandler(Object object) {
+    ButterKnifeDynamicHandler(Object object) {
         mObjectWR = new WeakReference<>(object);
     }
 
